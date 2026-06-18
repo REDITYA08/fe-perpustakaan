@@ -15,9 +15,10 @@ const showLogoutModal = ref(false);
 const showAddBookModal = ref(false);
 const showMenuFor = ref(null);
 
-const profileName = ref("reditya");
-const profileEmail = ref("redityaaa2008@gmail.com");
+const profileName = ref("");
+const profileEmail = ref("");
 const profileBio = ref("");
+const loginEmail = ref("");
 
 const selectedBook = ref(null);
 const selectedCategory = ref(null);
@@ -188,6 +189,7 @@ const saveProfile = ({ name, email, bio }) => {
             <span>✉️</span>
             <input
               type="email"
+              v-model="loginEmail"
               class="flex-1 outline-none text-base bg-transparent"
               placeholder="email"
             />
@@ -206,7 +208,10 @@ const saveProfile = ({ name, email, bio }) => {
             </button>
           </div>
           <button
-            @click="currentPage = 'discover'"
+            @click="
+              profileEmail = loginEmail;
+              currentPage = 'discover';
+            "
             class="w-full border-2 border-cyan-400 rounded-full py-3 text-xl font-light tracking-widest hover:bg-cyan-50 transition"
             style="font-family: Georgia, serif"
           >

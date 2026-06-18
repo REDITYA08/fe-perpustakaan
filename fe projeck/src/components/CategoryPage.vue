@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import BookList from "./BookList.vue";
+import BookCard from './BookCard.vue'
 
 // PROPS
 const props = defineProps({
