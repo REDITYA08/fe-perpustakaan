@@ -19,6 +19,8 @@ const profileName = ref("");
 const profileEmail = ref("");
 const profileBio = ref("");
 const loginEmail = ref("");
+const loginPassword = ref("");
+const loginError = ref("");
 
 const selectedBook = ref(null);
 const selectedCategory = ref(null);
@@ -154,6 +156,20 @@ const addBook = () => {
   showAddBookModal.value = false;
 };
 
+const handleLogin = () => {
+  if (!loginEmail.value.endsWith("@gmail.com")) {
+    loginError.value = "Email harus menggunakan @gmail.com";
+    return;
+  }
+  if (!loginPassword.value) {
+    loginError.value = "Password tidak boleh kosong";
+    return;
+  }
+  loginError.value = "";
+  profileEmail.value = loginEmail.value;
+  currentPage.value = "discover";
+};
+
 const saveProfile = ({ name, email, bio }) => {
   profileName.value = name;
   profileEmail.value = email;
@@ -198,20 +214,21 @@ const saveProfile = ({ name, email, bio }) => {
             <span>🔒</span>
             <input
               type="password"
+              v-model="loginPassword"
               placeholder="••••••••"
               class="flex-1 outline-none text-base bg-transparent"
             />
           </div>
-          <div class="text-right text-sm text-gray-500 mt-1 mb-6">
+          <div class="text-right text-sm text-gray-500 mt-1 mb-2">
             <button @click="currentPage = 'forgotPassword'" class="hover:underline">
               lupa password?
             </button>
           </div>
+          <p v-if="loginError" class="text-red-500 text-sm mb-3 text-center">
+            {{ loginError }}
+          </p>
           <button
-            @click="
-              profileEmail = loginEmail;
-              currentPage = 'discover';
-            "
+            @click="handleLogin"
             class="w-full border-2 border-cyan-400 rounded-full py-3 text-xl font-light tracking-widest hover:bg-cyan-50 transition"
             style="font-family: Georgia, serif"
           >
